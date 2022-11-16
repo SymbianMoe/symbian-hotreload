@@ -6,10 +6,10 @@
   "repository": "https://github.com/SymbianMoe/symbian-hotreload",
   "author": "SymbianMoe <moe.shawky1799@icloud.com>",
   "scripts": {
-    "build": "webpack --mode production",
+    "build": "cross-env NODE_OPTIONS='--openssl-legacy-provider' webpack --mode production",
     "format": "prettier --write \"src/**/*.ts\"",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
-    "watch": "webpack --mode development --watch true"
+    "watch": "cross-env NODE_OPTIONS='--openssl-legacy-provider' webpack --mode development --watch true"
   },
   "license": "MIT",
   "private": false,
@@ -22,6 +22,7 @@
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^3.8.0",
     "@typescript-eslint/parser": "^2.34.0",
+    "cross-env": "^7.0.3",
     "eslint": "^7.6.0",
     "eslint-config-prettier": "^6.11.0",
     "eslint-loader": "^4.0.2",

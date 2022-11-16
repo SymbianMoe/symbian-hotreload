@@ -32,11 +32,10 @@ watcher.on('addDir', ( path)=> {
   // on the initial run the script will read the root folder as a resource so we need to ignore it
   if (res_name !== "[hotreload]") {
     print.info("new resource found: " + res_name);
+    
     if (checkIfValidResource(path)) {
       print.success(`resource "${res_name}" is valid, starting resource..`)
       resources.addResource(res_name);
-    } else {
-      print.error(`resource "${res_name}" is not valid (no fxmanifest file detected)`)
     }
   }
 })

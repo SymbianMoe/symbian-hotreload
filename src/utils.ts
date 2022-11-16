@@ -4,8 +4,17 @@ import path from 'path';
 export function checkIfValidResource(resource_path:string) : boolean {
     const fx_manifest = path.join(resource_path, 'fxmanifest.lua');
     if (fs.existsSync(fx_manifest)) {
-      return true;
+        const fx_manifest_contents = fs.readFileSync(fx_manifest, {encoding: 'utf8'}).toString();
+        const fx_version = fx_manifest_contents.search('fx_version');
+        const game_type = fx_manifest_contents.search('game');
+        if (fx_version !== -1 && game_type !== -1) {
+            return true;
+        } else {
+            print.error("invalid resource (empty fxmanifest)");
+            return false;
+        }
     }
+    print.error("invalid resource (no fxmanifest file)");
     return false;
 }
   
