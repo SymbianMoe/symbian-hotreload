@@ -6,7 +6,7 @@
   <br>
 </p>
 
-This is a basic hot-reload script for loading and hot-reloading fivem scripts
+This is a basic hot-reload script for auto-loading and hot-reloading fivem scripts
 THIS IS NOT A PRODUCTION VERSION AND YOU SHOULD NOT USE THIS IN YOUR LIVE SERVER
 
 ## Usage
