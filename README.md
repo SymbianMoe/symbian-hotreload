@@ -15,8 +15,9 @@ THIS IS NOT A PRODUCTION VERSION AND YOU SHOULD NOT USE THIS IN YOUR LIVE SERVER
 2. Clone repository into your `resources/symbian-hotreload` folder.
 3. `yarn` the dependencies.
 4. Build the script using `yarn build`.
-5. Add this line to your server config `add_ace resource.symbian-hotreload command allow`.
-6. Now when you add any new script to `[hotreload]` folder the script will start it automatically and vice versa when deleting a script
+5. Add the script to your server config `ensure symbian-hotreload`
+6. Add this line to your server config `add_ace resource.symbian-hotreload command allow`.
+7. Now when you add any new script to `[hotreload]` folder the script will start it automatically and vice versa when deleting a script
 
 ## License
 
