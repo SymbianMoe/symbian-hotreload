@@ -14,19 +14,9 @@ THIS IS NOT A PRODUCTION VERSION AND YOU SHOULD NOT USE THIS IN YOUR LIVE SERVER
 1. Create a folder called `[hotreload]` in your `resources` folder.
 2. Clone repository into your `resources/symbian-hotreload` folder.
 3. `yarn` the dependencies.
-4. Start development.
-
-### Development
-
-Use `yarn watch` to watch files during development.
-
-### Production
-
-THIS IS A BETA VERSION AND YOU SHOULD NOT USE THIS IN YOUR PRODUCTION SERVER.
-
-Build your production ready code with `yarn build`.
-
-This will build the client and server script with the `--mode production` flag.
+4. Build the script using `yarn build`.
+5. Add this line to your server config `add_ace resource.symbian-hotreload command allow`.
+6. Now when you add any new script to `[hotreload]` folder the script will start it automatically and vice versa when deleting a script
 
 ## License
 
