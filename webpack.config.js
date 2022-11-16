@@ -1,11 +1,16 @@
 const webpack = require('webpack');
 const path = require('path');
 const RemovePlugin = require('remove-files-webpack-plugin');
-
+const { IgnorePlugin } = require('webpack');
 const buildPath = path.resolve(__dirname, 'dist');
 
+const optionalPlugins = [];
+if (process.platform !== "darwin") {
+  optionalPlugins.push(new IgnorePlugin({ resourceRegExp: /^fsevents$/ }));
+}
+
 const server = {
-  entry: './src/server/server.ts',
+  entry: './src/server.ts',
   module: {
     rules: [
       {
@@ -16,6 +21,7 @@ const server = {
     ],
   },
   plugins: [
+    ...optionalPlugins,
     new webpack.DefinePlugin({ 'global.GENTLY': false }),
     new RemovePlugin({
       before: {
