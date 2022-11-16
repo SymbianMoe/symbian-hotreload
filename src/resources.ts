@@ -1,18 +1,28 @@
+import { print } from './utils';
+
 export class Resources {
     private resources: string[];
-    constructor(){
+
+    constructor() {
         this.resources = [];
     }
+
     addResource(resource: string): void {
-        const isStarted = StartResource(resource)
-        if (isStarted){
+        const isStarted = StartResource(resource);
+        if (isStarted) {
             this.resources.push(resource);
         }
         else {
+            print.info('Refreshing resource: ', resource);
+
             ExecuteCommand("refresh");
-            this.addResource(resource);
+
+            // TODO: this call is calling recursion, fix this
+            // print.info('Adding resource: ', resource);
+            // this.addResource(resource);
         }
     }
+
     removeResource(resource: string): void {
         const index = this.resources.indexOf(resource);
         if (index > -1) { // only splice array when item is found

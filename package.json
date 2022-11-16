@@ -17,7 +17,8 @@
     "@citizenfx/client": "^1.0.2792-1",
     "@citizenfx/server": "^1.0.2792-1",
     "@types/node": "^14.0.27",
-    "chokidar": "^3.5.3"
+    "chokidar": "^3.5.3",
+    "signale": "^1.4.0"
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^3.8.0",
