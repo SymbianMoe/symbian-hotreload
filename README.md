@@ -22,7 +22,7 @@ Use `yarn watch` to watch files during development.
 
 ### Production
 
-THIS IS A BETA VERSION AND YOU SHOULD NOT USE THIS IN YOUR PRODUCTION SERVER !
+THIS IS A BETA VERSION AND YOU SHOULD NOT USE THIS IN YOUR PRODUCTION SERVER !.
 Build your production ready code with `yarn build`.
 
 This will build the client and server script with the `--mode production` flag.
