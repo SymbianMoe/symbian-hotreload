@@ -1,7 +1,7 @@
-<h1 align="center">fivem-ts-boilerplate</h1>
+<h1 align="center">(beta) symbian-hot-reload</h1>
 
 <p align="center">
-  <i>:fire: A Typescript Boilerplate for FiveM :video_game:</i>
+  <i>:fire: (beta) A Hot Reload Script for FiveM :video_game:</i>
   <br>
   <br>
   <a href="https://github.com/d0p3t/fivem-ts-boilerplate/blob/master/LICENSE">
@@ -18,11 +18,12 @@
   </a>
 </p>
 
-This is a basic boilerplate for creating a FiveM resource using Typescript. It includes webpack config files, linting (ESlint + prettier) and a directory structure to get you started. We recommend to use [fivem-js](https://github.com/d0p3t/fivem-js) alongside this boilerplate for faster development of client scripts.
+This is a basic hot-reload script for loading and hot-reloading fivem scripts
+THIS IS NOT A PRODUCTION VERSION AND YOU SHOULD NOT USE THIS IN YOUR LIVE SERVER
 
 ## Usage
 
-1. Clone repository into your `resources/[local]` folder.
+1. Clone repository into your `resources/symbian-hotreload` folder.
 2. `yarn` the dependencies.
 3. Start development.
 
@@ -32,22 +33,10 @@ Use `yarn watch` to watch files during development.
 
 ### Production
 
+THIS IS A BETA VERSION AND YOU SHOULD NOT USE THIS IN YOUR PRODUCTION SERVER !
 Build your production ready code with `yarn build`.
 
 This will build the client and server script with the `--mode production` flag.
-
-### Automatic Builds (Optional)
-
-The `fxmanifest.lua` is not setup to automatically build upon first FXServer start. If you'd like to setup automatic builds you must add the following to your `fxmanifest.lua`.
-
-```lua
-dependency 'yarn'
-dependency 'webpack'
-
-webpack_config 'webpack.config.js'
-```
-
-However, due to the speed performance of the pre-packaged webpack/yarn of cfx-server-data, we suggest you don't do this and build manually as described previously ("Production").
 
 ## License
 
