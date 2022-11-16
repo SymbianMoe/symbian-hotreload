@@ -14,26 +14,8 @@ export function extractResourceName(path: string):string {
     return pathArr[pathArr.length-1]; 
 }
 
-export class Resources {
-    private resources: string[];
-    constructor(){
-        this.resources = [];
-    }
-    addResource(resource: string): void {
-        const isStarted = StartResource(resource)
-        if (isStarted){
-            this.resources.push(resource);
-        }
-        else {
-            ExecuteCommand("refresh");
-            this.addResource(resource);
-        }
-    }
-    removeResource(resource: string): void {
-        const index = this.resources.indexOf(resource);
-        if (index > -1) { // only splice array when item is found
-            StopResource(resource);
-            this.resources.splice(index, 1); // 2nd parameter means remove one item only
-        }
-    }
+export const print = {
+    error : (msg:string):void => console.log(`\x1b[31m[HOTRELOAD:ERROR] \x1b[0m${msg}`),
+    success : (msg:string):void => console.log(`\x1b[32m[HOTRELOAD:SUCCESS] \x1b[0m${msg}`),
+    info: (msg:string):void => console.log(`\x1b[33m[HOTRELOAD:INFO] \x1b[0m${msg}`),
 }
