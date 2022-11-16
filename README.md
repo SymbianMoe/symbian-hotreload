@@ -20,4 +20,4 @@ THIS IS NOT A PRODUCTION VERSION AND YOU SHOULD NOT USE THIS IN YOUR LIVE SERVER
 
 ## License
 
-This product is MIT licensed. Please make sure you give credit and include this license in your product.
+This script is MIT licensed. Please make sure you give credit and include this license in your server.
