@@ -1,52 +1,58 @@
-import path from 'path';
 import chokidar from 'chokidar';
-import { extractResourceName,checkIfValidResource,print } from './utils';
-import { Resources } from './resources';
-// get server path
-const resource_path = path.resolve(process.cwd());
+import {
+  extractResourceName,
+  fileExistsInPath,
+  print
+} from './utils';
+import {Resources} from './resources';
+import {config} from './config';
+import {prepareResourcePaths} from './utils';
 
-// add /resources/[hotreload] dir to path
-const scripts_path = path.join(resource_path, 'resources','[hotreload]');
+print.info('TrueCore ResourceManager v1.0');
+print.debug('Resource path: ", config.resources.paths');
 
-// just a class to handle resource in memory
+const resourcePaths = prepareResourcePaths();
 const resources = new Resources();
 
+const watcher = chokidar.watch(resourcePaths, config.watchOptions).on('ready', (): void => {
+  print.watch('Initial scan complete. All resources are loaded. Ready for changes')
+  print.debug('Watching for changes in', resourcePaths);
+});
 
-// init watcher
-const watcher = chokidar.watch(scripts_path, {
-  persistent: true,
-  depth :0,
-  disableGlobbing: true,
-  awaitWriteFinish: {
-    stabilityThreshold: 2000,
-    pollInterval: 100
-  },
-})
+watcher.on('all', (event: string, path: string): void => {
+  print.debug(`Event: ${event} on path: ${path}`);
+});
 
-// make sure the watch started
-watcher.on('ready', () => print.success('Initial scan complete. All resources are loaded. Ready for changes'));
+watcher.on('change', (path: string): void => {
+  const resourceName = extractResourceName(path);
+  print.info('Resource changed: ', resourceName);
+  resources.removeResource(resourceName);
+  resources.addResource(resourceName);
+});
 
-// on add dir event handler
-watcher.on('addDir', ( path)=> {
-  const res_name = extractResourceName(path);
-  // on the initial run the script will read the root folder as a resource so we need to ignore it
-  if (res_name !== "[hotreload]") {
-    print.info("new resource found: " + res_name);
-    
-    if (checkIfValidResource(path)) {
-      print.success(`resource "${res_name}" is valid, starting resource..`)
-      resources.addResource(res_name);
-    }
+watcher.on('addDir', (path): void => {
+  const resourceName: string = extractResourceName(path);
+
+  // Check if resource is ignored
+  if (config.resources.ignored.includes(resourceName)) {
+    print.complete('Ignoring resource: ', resourceName);
+    return;
   }
-})
 
-// on remove dir event handler
-watcher.on('unlinkDir', ( path)=> {
-  const res_name = extractResourceName(path);
-  print.success("resource deleted: " + res_name);
-  resources.removeResource(res_name);
-})
+  // Check if resource is a valid resource
+  if (fileExistsInPath(path, 'fxmanifest.lua')) {
+    print.complete(`Resource "${resourceName}" is valid, starting resource..`)
+    resources.addResource(resourceName);
+  } else {
+    print.pending(`Resource "${resourceName}" is not valid (no fxmanifest file detected)`)
+  }
+});
 
+// On remove dir event handler
+watcher.on('unlinkDir', (path): void => {
+  resources.removeResource(extractResourceName(path));
+});
 
-
-watcher.on('error', error => print.error(`Watcher error: ${error}`))
+watcher.on('error', (error): void => {
+  print.error(`Watcher error: ${error}`)
+});

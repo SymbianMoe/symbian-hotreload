@@ -15,7 +15,7 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "resolveJsonModule": true,
-    "esModuleInterop": true
+    "esModuleInterop": true,
   },
   "include": ["./**/*"],
   "exclude": ["**/node_modules", "**/__tests__/*"]
