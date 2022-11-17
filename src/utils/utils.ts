@@ -1,18 +1,18 @@
 import fs from 'fs';
 import path from 'path';
 import { Signale } from 'signale';
-import {config} from '../config';
+import { config } from '../config';
 
 export function fileExistsInPath(folder: string, file: string): boolean {
     return fs.existsSync(path.join(folder, file))
 }
 
-export function checkIfValidResource(resource_path:string) : boolean {
+export function checkIfValidResource(resource_path: string): boolean {
     const resource_name = getLastDir(resource_path)
     if (config.resources.paths.some(s => resource_name.includes(s) )){
       return false;
     }
-    const fx_manifest = path.join(resource_path,'fxmanifest.lua');
+    const fx_manifest = path.join(resource_path, 'fxmanifest.lua');
     if (fileExistsInPath(resource_path, 'fxmanifest.lua')) {
         const fx_manifest_contents = fs.readFileSync(fx_manifest, {encoding: 'utf8'}).toString();
         const fx_version = fx_manifest_contents.search('fx_version');
@@ -28,8 +28,6 @@ export function checkIfValidResource(resource_path:string) : boolean {
     return false;
 }
   
-
-// [ture]/test/client
 export function extractResourceName(path: string): string {
   return splitMulti(path,config.resources.paths).pop().split(config.directorySeparators[process.platform]).pop();
 }
@@ -44,8 +42,7 @@ export const prepareResourcePaths = (): string[] => {
   });
 }
 
-
-export function splitMulti(str:string, separatorsArr:string[]) : string[]{
+export function splitMulti(str: string, separatorsArr: string[]): string[]{
   //  Removing [] from the string (because regex doesn't support it)
   const separators = separatorsArr.map((val)=>{
       val = val.split('[').join('');
@@ -62,6 +59,5 @@ export function splitMulti(str:string, separatorsArr:string[]) : string[]{
   const re = new RegExp('\.('+ separators +')', "g");
   return str.replace(re, tempChar).split(tempChar).map(el => el.trim()).filter(el => el.length > 0);
 }
-
 
 export const print = new Signale(config.logger);
