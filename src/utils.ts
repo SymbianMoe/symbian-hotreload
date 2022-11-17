@@ -8,7 +8,6 @@ export function fileExistsInPath(folder: string, file: string): boolean {
 }
 
 export function checkIfValidResource(resource_path: string): boolean {
-  const fx_manifest = path.join(resource_path, 'fxmanifest.lua');
   if (fileExistsInPath(resource_path, 'fxmanifest.lua')) {
     const fx_manifest_contents = fs
       .readFileSync(path.join(resource_path, 'fxmanifest.lua'), { encoding: 'utf8' })
