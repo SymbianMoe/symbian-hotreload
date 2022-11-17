@@ -7,10 +7,15 @@
   "author": "SymbianMoe <moe.shawky1799@icloud.com>",
   "scripts": {
     "build": "webpack --mode production",
-    "format": "prettier --write \"src/**/*.ts\"",
+    "format": "prettier --write src/*.ts",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
-    "watch": "webpack --mode development --watch true"
+    "watch": "webpack --mode development --watch true",
+    "validate": "npm ls"
   },
+  "pre-commit": [
+    "lint",
+    "format"
+  ],
   "license": "MIT",
   "private": false,
   "dependencies": {
@@ -27,11 +32,17 @@
     "eslint": "^7.6.0",
     "eslint-config-prettier": "^6.11.0",
     "eslint-loader": "^4.0.2",
+    "precommit-hook": "^3.0.0",
     "prettier": "^2.0.5",
     "remove-files-webpack-plugin": "^1.4.3",
     "ts-loader": "^8.0.2",
     "typescript": "^3.9.7",
     "webpack": "^4.44.1",
     "webpack-cli": "^3.3.12"
-  }
+  },
+  "pre-commit": [
+    "lint",
+    "validate",
+    "test"
+  ]
 }
