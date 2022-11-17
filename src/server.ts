@@ -3,6 +3,7 @@ import { extractResourceName, fileExistsInPath, print } from './utils';
 import { Resources } from './resources';
 import { config } from './config';
 import { prepareResourcePaths } from './utils';
+import { CreateWatchCommand, CreateUnwatchCommand } from './commands';
 
 print.info('TrueCore ResourceManager v1.0');
 print.debug('Resource path: ", config.resources.paths');
@@ -14,6 +15,9 @@ const watcher = chokidar.watch(resourcePaths, config.watchOptions).on('ready', (
   print.watch('Initial scan complete. All resources are loaded. Ready for changes');
   print.debug('Watching for changes in', resourcePaths);
 });
+
+CreateWatchCommand(watcher);
+CreateUnwatchCommand(watcher);
 
 watcher.on('all', (event: string, path: string): void => {
   print.debug(`Event: ${event} on path: ${path}`);
