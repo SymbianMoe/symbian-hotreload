@@ -15,6 +15,7 @@ type Config = {
     }
 }
 
+
 export enum SupportedPlatforms {
     win32 = "win32",
     linux = "linux",
@@ -27,9 +28,19 @@ export const config: Config = {
             '[true]'
         ],
         ignored: [
-            '[true]',
             'true-ui',
-            'true-hotloader'
+            'true-hotloader',
+            'node_modules',
+            '.env',
+            '.github',
+            '.editorconfig',
+            '.eslintignore',
+            'package.json',
+            'README.md',
+            'webpack.config.js',
+            'yarn.lock',
+            '.yarn.installed',
+            'LICENSE',
         ]
     },
     watchOptions: {
@@ -37,11 +48,12 @@ export const config: Config = {
             stabilityThreshold: 2000,
             pollInterval: 100
         },
-        depth: 10,
+        depth: 0,
         disableGlobbing: true,
         persistent: true,
         atomic: 500,
         ignoreInitial: false,
+        ignored: (path:string):boolean => config.resources.ignored.some(s => path.includes(s)),
     },
     logger: {
         disabled: false,
@@ -51,10 +63,10 @@ export const config: Config = {
         scope: 'ResourceManager',
         secrets: [],
         stream: process.stdout,
-        ignored: /(^|[\/\\])\../,
     },
     directorySeparators: {
         'win32': '\\',
         'linux': '/',
-    }
+    },
+
 }
